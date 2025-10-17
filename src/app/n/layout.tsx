@@ -1,7 +1,8 @@
-import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
+import { ScrollTopButton } from '../../components/ScrollTopButton';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,23 +18,20 @@ export const metadata: Metadata = {
   description: 'My personal portfolio, blog, and personal website.'
 };
 
-export default function RootLayout({
+export default function Layout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.className}`}>
-      <body className="antialiased tracking-tight">
-        <div className="min-h-screen flex flex-col justify-between pt-0 md:pt-8 p-8 dark:bg-zinc-950 bg-white text-gray-900 dark:text-zinc-200">
-          <main className="max-w-[60ch] mx-auto w-full space-y-6">
-            {children}
-          </main>
-          <Footer />
-          <Analytics />
-        </div>
-      </body>
-    </html>
+    <>
+      <header>
+        <Link href="/" className="text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800">
+          Go back
+        </Link>
+      </header>
+      {children}
+    </>
   );
 }
 
@@ -63,6 +61,16 @@ function Footer() {
             )}
           </div>
         ))}
+      </div>
+
+      <div className="flex justify-center mt-4">
+        <ScrollTopButton />
+      </div>
+
+      <div className="flex justify-center mt-4 border-t max-w-[60ch] pt-4 text-gray-500 dark:text-gray-400 mx-auto">
+        <p className="font-medium">
+          &copy; {new Date().getFullYear()} | Gabriel Rocha
+        </p>
       </div>
     </footer>
   );
